@@ -19,7 +19,9 @@ module Hydra #:nodoc:
       @io = opts.fetch(:io) { raise "No IO Object" } 
       @verbose = opts.fetch(:verbose) { false }      
       $stdout.sync = true
-      trace 'Booted. Sending Request for file'
+      @runner_number = opts.fetch(:runner_number) { 1 }
+      ENV['TEST_ENV_NUMBER'] = @runner_number.to_s
+      trace "Booted number #{@runner_number.to_s}. Sending Request for file"
 
       @io.write RequestFile.new
       begin
